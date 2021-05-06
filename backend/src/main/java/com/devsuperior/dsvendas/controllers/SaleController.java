@@ -25,4 +25,5 @@ public class SaleController {
 		return ResponseEntity.ok(list);
 	}
 	
+	
 }

@@ -85,5 +85,4 @@ public class SaleDTO {
 		this.seller = seller;
 	}	
 	
-	
 }
