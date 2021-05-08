@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { SalesSum } from 'types/sales';
 import { BASE_URL } from 'utils/requests';
@@ -10,6 +11,7 @@ type ChartData = {
 
 const DonutChart = () => {
 
+    /*
     // Forma errada. exibida aqui apenas para efeitos didaticos.
     let chartData: ChartData = { labels: [], series: [] };
     // a string do get pode ser com crase: `${BASE_URL}/sales/amount-by-seller`
@@ -25,7 +27,24 @@ const DonutChart = () => {
             console.log(chartData);
         }
         );
-    // a forma errada faz com que ocorra esta chamada varias vezes pelo browser.
+    // a forma errada faz com que ocorra esta chamada varias vezes pelo browser
+    // e também não controla corretamente o estado, ja que dependendo da renderização
+    // do grafico, o axios pode serexecutado diversas vezes.
+    */
+
+    //FORMA CORRETA
+    const [chartData, setChartData] = useState<ChartData>({ labels: [], series: [] });
+
+    useEffect(() => {
+        axios.get(`${BASE_URL}/sales/amount-by-seller`)
+            .then(response => {
+                const data = response.data as SalesSum[];
+                const myLabels = data.map(x => x.sellerName);
+                const mySeries = data.map(x => x.sum);
+
+                setChartData({ labels: myLabels, series: mySeries });
+            });
+    }, []);
 
     /* usado apenas como mockup
     const mockData = {
