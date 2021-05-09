@@ -33,7 +33,7 @@ const DataTable = () => {
         <>
             <Pagination page={page} onPageChange={changePage} />
             <div className="table-responsive">
-                <table className="table table-striped table-sm">
+                <table className="table table-striped table-sm text-center">
                     <thead>
                         <tr>
                             <th>Data</th>
@@ -49,9 +49,9 @@ const DataTable = () => {
                                 <tr key={item.id}>
                                     <td>{formatLocalDate(item.date, "dd/MM/yyyy")}</td>
                                     <td>{item.seller.name}</td>
-                                    <td>{item.visited}</td>
+                                    <td >{item.visited}</td>
                                     <td>{item.deals}</td>
-                                    <td>{item.amount.toFixed(2)}</td>
+                                    <td className= "text-right">{item.amount.toFixed(2)}</td>
                                 </tr>
                             ))
                         }
